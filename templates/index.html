@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Profile Generator</title>
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-pb3fEJ+UZ4T+qNCTUMeFqXhUQmOZsY0d2RzD8uB0W+0sM0QXv+UO2E9cwo8u+nGffxQ1VxtW/KQd6I2b7vY3RQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; background: #f0f2f5; color: #333; }
+    /* ===== New header blocks ===== */
+    .page-header { display: flex; gap: 20px; justify-content: center; margin-bottom: 30px; }
+    .header-block {
+      flex: 1;
+      background: #fff;
+      border-radius: 8px;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform .2s;
+    }
+    .header-block:hover { transform: translateY(-4px); }
+    .header-block i { font-size: 24px; color: #007bff; margin-bottom: 8px; display: block; }
+    .header-block span { display: block; font-size: 16px; font-weight: bold; color: #007bff; }
+    /* ===== existing styles ===== */
+    textarea { width:100%; height:120px; padding:10px; font-size:14px; margin-bottom:10px; border:1px solid #ccc; border-radius:4px; resize:vertical; }
+    button { padding:10px 20px; font-size:14px; border:none; border-radius:4px; background:#007bff; color:#fff; cursor:pointer; transition:background .3s; }
+    button:hover:not(:disabled){background:#0056b3;}
+    button:disabled{background:#aaa;cursor:default;}
+    #status{margin:10px 0;font-style:italic;color:#555;}
+    .profile-card{background:#fff;border-radius:8px;padding:20px;margin-top:20px;box-shadow:0 4px 12px rgba(0,0,0,0.1);animation:fadeInUp .6s ease-out;}
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+    .profile-header{display:flex;align-items:center;background:#e9ecef;padding:15px;border-radius:8px;margin-bottom:20px;}
+    .avatar{width:80px;height:80px;border-radius:50%;object-fit:cover;margin-right:20px;border:2px solid #007bff;}
+    .profile-info h2{margin:0;font-size:28px;font-weight:bold;color:#007bff;}
+    .profile-info p.summary{margin:8px 0 0;font-size:16px;}
+    .meta-block{background:#f8f9fa;padding:10px 15px;border-radius:6px;margin-bottom:15px;display:flex;gap:20px;font-size:14px;}
+    .meta-block i{margin-right:6px;color:#007bff;}
+    .section{margin:12px 0;font-size:14px;}
+    .section i{margin-right:8px;color:#007bff;}
+    .badge{display:inline-block;background:#e0f0ff;color:#007bff;padding:4px 8px;border-radius:12px;margin:4px 4px 0 0;font-size:13px;font-weight:bold;}
+    .level-bar{background:#ddd;height:8px;border-radius:4px;overflow:hidden;margin-top:4px;}
+    .level-bar > div{background:#28a745;height:100%;}
+    .json-demo{background:#272c34;color:#9cdcfe;padding:15px;border-radius:6px;font-family:monospace;margin-top:20px;overflow-x:auto;white-space:pre-wrap;}
+    .json-label{margin-top:20px;font-size:16px;font-weight:bold;color:#333;}
+  </style>
+</head>
+<body>
+
+  <!-- new header -->
+  <div class="page-header">
+    <div class="header-block" onclick="location.href='/'">
+      <i class="fas fa-user-circle"></i>
+      <span>Profile Generator</span>
+    </div>
+    <div class="header-block" onclick="location.href='/about'">
+      <i class="fas fa-info-circle"></i>
+      <span>About Us</span>
+    </div>
+  </div>
+
+  <h1>AI Profile Generator</h1>
+  <textarea id="userInput" placeholder="Enter your bio here..."></textarea><br>
+  <button id="generateBtn">Generate Profile</button>
+  <p id="status"></p>
+  <div id="profileDisplay"></div>
+
+  <div id="jsonLabel" class="json-label" style="display:none;">
+    🔍 Raw JSON used to generate this profile:
+  </div>
+  <div id="jsonDemo" class="json-demo" style="display:none;"></div>
+
+  <script>
+    /* --- your existing JS (unchanged) --- */
+    const btn = document.getElementById('generateBtn');
+    const input = document.getElementById('userInput');
+    const statusEl = document.getElementById('status');
+    const displayEl = document.getElementById('profileDisplay');
+    const jsonEl = document.getElementById('jsonDemo');
+    const jsonLabel = document.getElementById('jsonLabel');
+
+    btn.addEventListener('click', async () => {
+      const text = input.value.trim();
+      if (!text) { alert('Please enter your bio before generating.'); return; }
+      btn.disabled = true; statusEl.textContent = '🚀 Generating profile...';
+      displayEl.innerHTML = ''; jsonLabel.style.display = 'none'; jsonEl.style.display = 'none';
+      try {
+        const resp = await fetch('/generate_profile', {
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({ user_input: text })
+        });
+        const data = await resp.json();
+        if (resp.ok) {
+          renderProfile(data);
+          jsonLabel.style.display = 'block';
+          jsonEl.textContent = JSON.stringify(data, null, 2);
+          jsonEl.style.display = 'block';
+        } else {
+          displayEl.textContent = '❌ Error: ' + (data.error||'Unknown error');
+        }
+      } catch (e) {
+        displayEl.textContent = '❌ Request failed: ' + e.message;
+      }
+      statusEl.textContent = ''; btn.disabled = false;
+    });
+
+    function renderProfile(profile) {
+      const card = document.createElement('div');
+      card.className = 'profile-card';
+      // header
+      const header = document.createElement('div'); header.className = 'profile-header';
+      const avatar = document.createElement('img');
+      avatar.src = '/static/pro-logo.jpg'; avatar.alt='Logo'; avatar.className='avatar';
+      const info = document.createElement('div'); info.className='profile-info';
+      const nameEl = document.createElement('h2'); nameEl.textContent = profile.name||'Unnamed';
+      info.appendChild(nameEl);
+      if (profile.summary) {
+        const sum = document.createElement('p'); sum.className='summary';
+        sum.textContent = profile.summary; info.appendChild(sum);
+      }
+      header.appendChild(avatar); header.appendChild(info);
+      card.appendChild(header);
+
+      // meta block
+      const meta = document.createElement('div'); meta.className='meta-block';
+      const res = document.createElement('div');
+      res.innerHTML = `<i class="fas fa-map-marker-alt"></i> Residence: ${
+        profile.location?.city ? profile.location.city+', ' : '' }${profile.location?.country||'Not specified'}`;
+      const age = document.createElement('div');
+      age.innerHTML = `<i class="fas fa-birthday-cake"></i> Age: ${
+        profile.age ? profile.age+' y.o.' : 'Not specified' }`;
+      meta.appendChild(res); meta.appendChild(age);
+      card.appendChild(meta);
+
+      // skills
+      if (profile.categories && profile.category_levels) {
+        const sec = document.createElement('div'); sec.className='section';
+        sec.innerHTML = `<i class="fas fa-cogs"></i> <strong>Skills 🛠️:</strong><br>`;
+        profile.categories.forEach(skill => {
+          const bd = document.createElement('span'); bd.className='badge'; bd.textContent=skill;
+          const bar = document.createElement('div'); bar.className='level-bar';
+          const fill = document.createElement('div');
+          fill.style.width = (profile.category_levels[skill]*20)+'%';
+          bar.appendChild(fill);
+          sec.appendChild(bd); sec.appendChild(bar);
+        });
+        card.appendChild(sec);
+      }
+
+      // achievements
+      if (profile.achievements) {
+        const sec = document.createElement('div'); sec.className='section';
+        sec.innerHTML = `<i class="fas fa-trophy"></i> Achievements 🏆:`;
+        const ul = document.createElement('ul');
+        profile.achievements.forEach(a => {
+          const li = document.createElement('li'); li.textContent = a; ul.appendChild(li);
+        });
+        sec.appendChild(ul); card.appendChild(sec);
+      }
+
+      // languages
+      if (profile.languages) {
+        const sec = document.createElement('div'); sec.className='section';
+        sec.innerHTML = `<i class="fas fa-language"></i> Languages 🌐: ` +
+          profile.languages.map(l => `<span class="badge">${l}</span>`).join(' ');
+        card.appendChild(sec);
+      }
+
+      displayEl.appendChild(card);
+    }
+  </script>
+
+</body>
+</html>

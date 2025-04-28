@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About Us – ProConnect AI</title>
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-pb3fEJ+UZ4T+qNCTUMeFqXhUQmOZsY0d2RzD8uB0W+0sM0QXv+UO2E9cwo8u+nGffxQ1VxtW/KQd6I2b7vY3RQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 20px;
+      background: #f9f9f9;
+      color: #333;
+    }
+    .page-header {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+    .header-block {
+      flex: 1;
+      background: #fff;
+      border-radius: 8px;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform .2s;
+    }
+    .header-block:hover {
+      transform: translateY(-4px);
+    }
+    .header-block i {
+      font-size: 24px;
+      color: #007bff;
+      margin-bottom: 8px;
+      display: block;
+    }
+    .header-block span {
+      display: block;
+      font-size: 16px;
+      font-weight: bold;
+      color: #007bff;
+    }
+    h1 {
+      text-align: center;
+      color: #007bff;
+      margin-bottom: 30px;
+    }
+    section {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+    }
+    section h2 {
+      margin-top: 0;
+      color: #007bff;
+    }
+    section h3 {
+      margin: 16px 0 8px;
+      color: #0056b3;
+    }
+    section h4 {
+      margin: 12px 0 6px;
+      color: #0056b3;
+      font-size: 1rem;
+    }
+    ul {
+      list-style: disc inside;
+      padding-left: 0;
+    }
+    ul li {
+      margin-bottom: 6px;
+    }
+    p {
+      line-height: 1.6;
+    }
+    .btn {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: #007bff;
+      color: #fff;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: background .3s;
+    }
+    .btn:hover {
+      background: #0056b3;
+    }
+    iframe.pdf-viewer {
+      width: 100%;
+      height: 600px;
+      border: none;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Blocks -->
+  <div class="page-header">
+    <div class="header-block" onclick="location.href='/'">
+      <i class="fas fa-user-circle"></i>
+      <span>Profile Generator</span>
+    </div>
+    <div class="header-block" onclick="location.href='/about'">
+      <i class="fas fa-info-circle"></i>
+      <span>About Us</span>
+    </div>
+  </div>
+
+  <!-- Page Title -->
+  <h1>About ProConnect AI</h1>
+
+  <!-- Who We Are -->
+  <section id="who-we-are">
+    <h2>Who We Are</h2>
+    <p>
+      ProConnect AI is an innovative social platform designed to bridge the gap between
+      professionals seeking short-term, specialized gigs and clients needing task-based
+      services. By leveraging three core AI modules—profile creation, job matching, and
+      contract generation—we streamline the entire workflow for maximum personalization
+      and trust.
+    </p>
+  </section>
+
+  <!-- Mission & Vision -->
+  <section id="mission-vision">
+    <h2>Mission &amp; Vision</h2>
+    <p>
+      <strong>Mission:</strong> To empower individuals worldwide with a seamless,
+      AI-assisted platform that transforms how talent is discovered, verified, and
+      deployed for short-term engagements.
+    </p>
+    <p>
+      <strong>Vision:</strong> Become the leading global hub where flexibility,
+      expertise, and advanced technology converge to redefine traditional labor markets
+      and monetize skills without conventional employment constraints.
+    </p>
+  </section>
+
+  <!-- Core Values -->
+  <section id="core-values">
+    <h2>Core Values</h2>
+    <ul>
+      <li><strong>Innovation:</strong> Embrace cutting-edge AI to enhance experience.</li>
+      <li><strong>Transparency:</strong> Build trusted systems with clear contracts.</li>
+      <li><strong>Inclusivity:</strong> Welcome diverse talents—students, retirees, immigrants.</li>
+      <li><strong>Efficiency:</strong> Automate processes for faster matching.</li>
+      <li><strong>User-Centricity:</strong> Continuously refine services by user feedback.</li>
+    </ul>
+  </section>
+
+  <!-- Strategic Objectives -->
+  <section id="strategic-objectives">
+    <h2>Strategic Objectives</h2>
+    <ul>
+      <li>Rapid user acquisition via partnerships &amp; marketing.</li>
+      <li>Continuous AI feature expansion and service module growth.</li>
+      <li>European launch (Baltics &amp; Germany) followed by U.S. &amp; Asia scaling.</li>
+      <li>Diversified revenue: commissions, subscriptions, targeted ads.</li>
+      <li>Robust KYC and dispute protocols for trust and security.</li>
+    </ul>
+  </section>
+
+  <!-- What Makes Us Unique -->
+  <section id="unique-features">
+    <h2>What Makes Us Unique</h2>
+
+    <h3>AI Profile Module</h3>
+    <p>Auto-extracts facts, categorizes skills, and crafts human-like summaries.</p>
+
+    <h3>AI Matchmaking</h3>
+    <p>Voice/text requests → instant, nuanced candidate matches.</p>
+
+    <h3>AI Contract Module</h3>
+    <p>Generates clear, enforceable PDF contracts with future blockchain support.</p>
+
+    <h3>Privacy &amp; Trust</h3>
+    <p>End-to-end KYC, secure servers, and transparent terms.</p>
+  </section>
+
+  <!-- Roadmap & Milestones -->
+  <section id="roadmap-milestones">
+    <h2>Roadmap &amp; Milestones</h2>
+
+    <h4>Q2 2025</h4>
+    <p>
+      Web MVP complete (profile, AI matching, PDF contracts); closed beta; €30 k seed raised.
+    </p>
+
+    <h4>Q3 2025</h4>
+    <p>
+      Pre-Seed round; mobile alpha; Nordic expansion; Stripe escrow; KPI benchmarks.
+    </p>
+
+    <h4>Q4 2025</h4>
+    <p>
+      “Verified Pro” subscription; blockchain contract beta; 5 k MAU target.
+    </p>
+
+    <h4>Q1 2026</h4>
+    <p>
+      US pilot (NY, CA); advanced analytics; breakeven at about 6.5 k active users.
+    </p>
+  </section>
+
+  <!-- Whitepaper Download & Embed -->
+  <section id="whitepaper">
+    <h2>Read Our Whitepaper</h2>
+    <p>
+      Dive deep into our architecture, data pipeline, and privacy model—download or read inline:
+    </p>
+    <a href="/static/whitepapers.pdf" class="btn" target="_blank">
+      <i class="fas fa-download"></i> Download PDF
+    </a>
+    <iframe class="pdf-viewer" src="/static/whitepapers.pdf"></iframe>
+  </section>
+
+</body>
+</html>
