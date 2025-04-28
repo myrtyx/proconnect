@@ -1,0 +1,53 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pdb
+*.egg-info/
+dist/
+build/
+
+# Flask
+instance/
+.env
+*.env
+
+# VS Code
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Virtual environment
+venv/
+env/
+ENV/
+.venv/
+.pytest_cache/
+
+# Docker
+*.db
+docker-compose.override.yml
+
+# Static file output (optional, if you generate PDFs or similar)
+static/*.pdf
+
+# Ignore local database files
+*.sqlite3
+*.db
+
+# Pip dependency folders
+pip-wheel-metadata/
+
+# Idea Projects (PyCharm)
+.idea/
+
+# Misc
+*.bak
+*.swp
+*~
