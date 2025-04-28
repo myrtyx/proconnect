@@ -18,34 +18,34 @@ This is the **MVP** version built with **Python**, **Flask**, and **OpenAI’s A
 
 ---
 
-###1
+### 1
 
 ```
 git clone https://your-repo-link.git
 cd your-project-folder
 ```
 
-###2
+### 2
 
 ```
 python -m venv venv
 venv\Scripts\activate
 ```
 
-###3
+### 3
 
 ```
 python3 -m venv venv
 source venv/bin/activate
 ```
 
-###4
+### 4
 
 ```
 pip install flask requests
 ```
 
-###5
+### 5
 
 ```
 python app.py
